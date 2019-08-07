@@ -38,20 +38,20 @@ matrix:
         - sudo installer -pkg wkhtmltox-0.12.5-1.macos-cocoa.pkg -target /
         - wget https://download.java.net/java/GA/jdk12/GPL/openjdk-12_osx-x64_bin.tar.gz
         - tar zxvf openjdk-12_osx-x64_bin.tar.gz
-#    -
-#      name: "Python 3.7 on Windows (no lint)"
-#      os: windows
-#      language: shell
-#      env:
-#        - JAVA_HOME="C:\\Program Files\\OpenJDK\\jdk-12.0.2"
-#        - PDF="C:\\Program Files\\wkhtmltopdf\\bin"
-#        - PATH=/c/Python37:/c/Python37/Scripts:$PDF:$JAVA_HOME\\bin:$PATH
-#      before_install:
-#        - export TRAVIS_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
-#        - choco install wkhtmltopdf
-#        - choco install python
-#        - python -m pip install --upgrade pip
-#        - choco install openjdk --version 12.0.2
+    -
+      name: "Python 3.7 on Windows (no lint)"
+      os: windows
+      language: shell
+      env:
+        - JAVA_HOME="C:\\Program Files\\OpenJDK\\jdk-12.0.2"
+        - PDF="C:\\Program Files\\wkhtmltopdf\\bin"
+        - PATH=/c/Python37:/c/Python37/Scripts:$PDF:$JAVA_HOME\\bin:$PATH
+      before_install:
+        - export TRAVIS_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
+        - choco install wkhtmltopdf
+        - choco install python
+        - python -m pip install --upgrade pip
+        - choco install openjdk --version 12.0.2
 install:
   - set PYTHONIOENCODING=UTF8
   - pip3 install --upgrade pip
@@ -66,5 +66,5 @@ before_script:
 # 'python3' is a 'command not found' error on Windows but 'py' works on Windows only
 # TODO: Enable tests on windows. Currently tox doesn't work + tests are stuck while running
 script:
-  -  if [ "$TRAVIS_OS_NAME" != "windows" ]; then tox -e lint; fi
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; then tox -e lint; fi
   - python3 manage.py test || python manage.py test
