@@ -13,7 +13,7 @@ install:
   - "%PYTHON%\\python.exe -m pip install --no-index --find-links=yara-python yara-python"
   - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
   - "%PYTHON%\\python.exe manage.py makemigrations"
-  - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+  - "%PYTHON%\\python.exe manage.py migrate"
 build: off
 test_script:
   - appveyor-retry %PYTHON%\\python.exe manage.py test
