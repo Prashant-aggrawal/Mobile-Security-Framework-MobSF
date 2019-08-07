@@ -1,0 +1,19 @@
+environment:
+  matrix:
+    - PYTHON: "C:\\Python36-x64"
+      WEBFRAMEWORK: "django-2.0"
+
+cache:
+  - "%APPDATA%\\pip"
+
+install:
+  # We need wheel installed to build wheels
+  - "%PYTHON%\\python.exe -m pip install -U wheel tox pip setuptools"
+  - %PYTHON%\\python.exe -m pip wheel --wheel-dir=yara-python --build-option="build" --build-option="--enable-dex" git+https://github.com/VirusTotal/yara-python.git
+  - "%PYTHON%\\python.exe -m pip install --no-index --find-links=yara-python yara-python"
+  - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+
+build: off
+
+test_script:
+  - appveyor-retry %PYTHON%\\python.exe manage.py test
